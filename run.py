@@ -24,20 +24,20 @@ def request_check():
         else:
             print(f"Answer not clear, you typed '{answer}'...")
 
-def get_entry_fee(prompt):
+def retrieve_user_data(prompt, request):
     while True:
         print(prompt)
-        print("Data should be a whole number and not contain commas.")
+        print("Data should be a whole number and not contain any commas.")
         print(f"Example: 1000 \n")
-        user_entry_fee = input(f"Entry fee:\n")
-        if validate_entry(user_entry_fee):
+        user_data = input(f"{request}:")
+        if validate_entry(user_data):
             print("Thank you!")
             break
         else:
             continue
-    entry_fee = []
-    entry_fee.append(user_entry_fee)    
-    return (entry_fee)
+    entered_data = []
+    entered_data.append(user_data)    
+    return (entered_data)
 
 def validate_entry(value):
     try:
@@ -52,17 +52,21 @@ def update_database(data, worksheet):
     print(f"Updating database...\n")
     worksheet_to_update = SHEET.worksheet(worksheet)
     worksheet_to_update.append_row(data)
-    print(f"Database updated successfully\n")
+    print(f"Database updated successfully!\n")
 
 
 def winnings_check():
     while True:
-        answer = input(f"Did you win anything in this tournament? Please answer with 'y'(yes) or 'n'(no) \n")
+        answer = input(f"""
+Did you win anything in this tournament? 
+Please answer with 'y'(yes) or 'n'(no) \n
+""")
         if answer == "y":
-            print(f"Congratulations \n")
-            winnings = get_entry_fee(f"Please enter how much you won \n")
+            print(f"Congratulations!!! \n")
+            winnings = retrieve_user_data(f"Please enter how much you won \n", "Winnings €")
             return winnings
         elif answer == "n":
+            print("Better luck next time!")
             return ["0"]
         else:
             print(f"Answer not clear, you typed '{answer}' please type 'y' or 'n'")
@@ -93,13 +97,12 @@ def calculate_totals(worksheet1, worksheet2, worksheet3):
             item = int(item)
             k += item
     winnings = k
-
     return  losses, hours, winnings
 
 def calculate_winrate(data1, data2, data3):
    profit = data3 - data1
    return_on_investment = round((((data3 - data1)/ data1 )*100), 2) 
-   hourly_rate = profit/data2
+   hourly_rate = round((profit/data2), 2)
    print(f"""
    Your profit to date is: €{profit}
    Your return on investment is: {return_on_investment}%
@@ -107,11 +110,11 @@ def calculate_winrate(data1, data2, data3):
    """)
 
 def tournament_updates():
-    entry_fee = get_entry_fee(f"Please enter tournament entry fee \n")
+    entry_fee = retrieve_user_data(f"Please enter tournament entry fee \n", "Entry Fee €")
     update_database(entry_fee, "entry_fees")
     winnings = winnings_check()
     update_database(winnings, "winnings")
-    hours_played = get_entry_fee("How many hours did you play in this tournament?")
+    hours_played = retrieve_user_data("How many hours did you play in this tournament?", "Hours Played")
     update_database(hours_played, "hours_played")
 
 def winrate_update():
