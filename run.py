@@ -62,14 +62,14 @@ def main():
     hours_played = get_entry_fee("How many hours did you play in this tournament?")
     update_database(hours_played, "hours_played")
 
-def calculate_winrate(worksheet1, worksheet2, worksheet3):
+def calculate_totals(worksheet1, worksheet2, worksheet3):
     lists = SHEET.worksheet(worksheet1).get_all_values()
     i = 0
     for list in lists:
         for item in list:
             item = int(item)
             i += item
-    costs = i
+    losses = i
 
     lists = SHEET.worksheet(worksheet2).get_all_values()
     j = 0
@@ -85,8 +85,18 @@ def calculate_winrate(worksheet1, worksheet2, worksheet3):
         for item in list:
             item = int(item)
             k += item
-    profit = k
+    winnings = k
 
-    return {"Costs to date": costs, "Hours Played": hours, "Profit": profit}
+    return  losses, hours, winnings
 
-print(calculate_winrate("entry_fees", "hours_played", "winnings"))
+def calculate_winrate(data1, data2, data3):
+   profit = data3 - data1
+   return_on_investment = round((((data3 - data1)/ data1 )*100), 2) 
+   hourly_rate = profit/data2
+   print(f"""
+   Your profit to date is: €{profit}
+   Your return on investment is: {return_on_investment}%
+   Your winrate is €{hourly_rate} per hour played.
+   """)
+losses, hours, winnings = calculate_totals("entry_fees", "hours_played", "winnings")
+calculate_winrate(losses, hours, winnings)
