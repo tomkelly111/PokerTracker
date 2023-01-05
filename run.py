@@ -69,7 +69,7 @@ def calculate_winrate(worksheet1, worksheet2, worksheet3):
         for item in list:
             item = int(item)
             i += item
-    print(i)
+    costs = i
 
     lists = SHEET.worksheet(worksheet2).get_all_values()
     j = 0
@@ -77,7 +77,7 @@ def calculate_winrate(worksheet1, worksheet2, worksheet3):
         for item in list:
             item = int(item)
             j += item
-    print(j)
+    hours = j
 
     lists = SHEET.worksheet(worksheet3).get_all_values()
     k = 0
@@ -85,6 +85,8 @@ def calculate_winrate(worksheet1, worksheet2, worksheet3):
         for item in list:
             item = int(item)
             k += item
-    print(k)
+    profit = k
 
-calculate_winrate("entry_fees", "hours_played", "winnings")
+    return {"Costs to date": costs, "Hours Played": hours, "Profit": profit}
+
+print(calculate_winrate("entry_fees", "hours_played", "winnings"))
