@@ -12,12 +12,15 @@ SHEET = GSPREAD_CLIENT.open("pokertracker")
 
 def request_check():
     while True:
-        answer = input(f"What would you like to do? Type '1' to add tournament details or '2' to view your current winrate. \n")
+        answer = input(f"What would you like to do? Type '1' to add tournament details, '2' to view your current winrate or 'x' to exit. \n")
         if answer == "1":
             tournament_updates()
         elif answer == "2":
             print("Calculating winrate...")
             winrate_update()
+        elif answer == "x":
+            print("Thanks for using PokerTracker... Goodbye!")
+            raise SystemExit
         else:
             print(f"Answer not clear, you typed '{answer}'...")
 
@@ -60,7 +63,6 @@ def winnings_check():
             winnings = get_entry_fee(f"Please enter how much you won \n")
             return winnings
         elif answer == "n":
-            print("updating database")
             return ["0"]
         else:
             print(f"Answer not clear, you typed '{answer}' please type 'y' or 'n'")
