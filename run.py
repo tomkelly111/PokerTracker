@@ -10,6 +10,11 @@ SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open("pokertracker")
 
-hours = SHEET.worksheet("hours_played")
-data = hours.get_all_values()
-print(data)
+def get_entry_fee():
+    print("Please enter tournament entry fee.")
+    print("Data should be a whole number and not contain commas.")
+    print("Example: 1000")
+    entry_fee = input("Enter your latest tournament entry fee:\n")
+    return (entry_fee)
+
+print(get_entry_fee())
