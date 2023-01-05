@@ -10,6 +10,17 @@ SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open("pokertracker")
 
+def request_check():
+    while True:
+        answer = input(f"What would you like to do? Type '1' to add tournament details or '2' to view your current winrate. \n")
+        if answer == "1":
+            tournament_updates()
+        elif answer == "2":
+            print("Calculating winrate...")
+            winrate_update()
+        else:
+            print(f"Answer not clear, you typed '{answer}'...")
+
 def get_entry_fee(prompt):
     while True:
         print(prompt)
@@ -54,13 +65,7 @@ def winnings_check():
         else:
             print(f"Answer not clear, you typed '{answer}' please type 'y' or 'n'")
 
-def main():
-    entry_fee = get_entry_fee(f"Please enter tournament entry fee \n")
-    update_database(entry_fee, "entry_fees")
-    winnings = winnings_check()
-    update_database(winnings, "winnings")
-    hours_played = get_entry_fee("How many hours did you play in this tournament?")
-    update_database(hours_played, "hours_played")
+
 
 def calculate_totals(worksheet1, worksheet2, worksheet3):
     lists = SHEET.worksheet(worksheet1).get_all_values()
@@ -98,5 +103,22 @@ def calculate_winrate(data1, data2, data3):
    Your return on investment is: {return_on_investment}%
    Your winrate is €{hourly_rate} per hour played.
    """)
-losses, hours, winnings = calculate_totals("entry_fees", "hours_played", "winnings")
-calculate_winrate(losses, hours, winnings)
+
+def tournament_updates():
+    entry_fee = get_entry_fee(f"Please enter tournament entry fee \n")
+    update_database(entry_fee, "entry_fees")
+    winnings = winnings_check()
+    update_database(winnings, "winnings")
+    hours_played = get_entry_fee("How many hours did you play in this tournament?")
+    update_database(hours_played, "hours_played")
+
+def winrate_update():
+    losses, hours, winnings = calculate_totals("entry_fees", "hours_played", "winnings")
+    calculate_winrate(losses, hours, winnings)
+
+
+
+def main():
+    request_check()
+    
+main()  
