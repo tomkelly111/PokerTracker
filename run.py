@@ -62,4 +62,29 @@ def main():
     hours_played = get_entry_fee("How many hours did you play in this tournament?")
     update_database(hours_played, "hours_played")
 
-main()
+def calculate_winrate(worksheet1, worksheet2, worksheet3):
+    lists = SHEET.worksheet(worksheet1).get_all_values()
+    i = 0
+    for list in lists:
+        for item in list:
+            item = int(item)
+            i += item
+    print(i)
+
+    lists = SHEET.worksheet(worksheet2).get_all_values()
+    j = 0
+    for list in lists:
+        for item in list:
+            item = int(item)
+            j += item
+    print(j)
+
+    lists = SHEET.worksheet(worksheet3).get_all_values()
+    k = 0
+    for list in lists:
+        for item in list:
+            item = int(item)
+            k += item
+    print(k)
+
+calculate_winrate("entry_fees", "hours_played", "winnings")
