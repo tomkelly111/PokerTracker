@@ -10,12 +10,12 @@ SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open("pokertracker")
 
-def get_entry_fee():
+def get_entry_fee(prompt):
     while True:
-        print("Please enter tournament entry fee.")
+        print(prompt)
         print("Data should be a whole number and not contain commas.")
-        print("Example: 1000")
-        user_entry_fee = input(f"Enter your latest tournament entry fee:\n")
+        print(f"Example: 1000 \n")
+        user_entry_fee = input(f"Entry fee:\n")
         if validate_entry(user_entry_fee):
             print("Thank you!")
             break
@@ -45,16 +45,20 @@ def winnings_check():
     while True:
         answer = input(f"Did you win anything in this tournament? Please answer with 'y'(yes) or 'n'(no) \n")
         if answer == "y":
-            print("Congratulations")
-            break
+            print(f"Congratulations \n")
+            winnings = get_entry_fee(f"Please enter how much you won \n")
+            return winnings
         elif answer == "n":
             print("updating database")
-            return 0
+            return ["0"]
         else:
             print(f"Answer not clear, you typed '{answer}' please type 'y' or 'n'")
 
 def main():
-    validate_entry(entry_fee)
+    entry_fee = get_entry_fee(f"Please enter tournament entry fee \n")
+    update_database(entry_fee, "entry_fees")
+    winnings = winnings_check()
+    update_database(winnings, "winnings")
+    
 
-entry_fee = get_entry_fee()
-update_database(entry_fee, "entry_fees")
+main()
