@@ -10,9 +10,14 @@ SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open("pokertracker")
 
-def request_check():
+
+def user_options():
     while True:
-        answer = input(f"What would you like to do? Type '1' to add tournament details, '2' to view your current winrate or 'x' to exit. \n")
+        answer = input(f"""
+What would you like to do? Type:
+'1' to add tournament details,
+'2' to view your current winrate or
+'x' to exit. \n""")
         if answer == "1":
             tournament_updates()
         elif answer == "2":
@@ -23,6 +28,7 @@ def request_check():
             raise SystemExit
         else:
             print(f"Answer not clear, you typed '{answer}'...")
+
 
 def retrieve_user_data(prompt, request):
     while True:
@@ -36,8 +42,9 @@ def retrieve_user_data(prompt, request):
         else:
             continue
     entered_data = []
-    entered_data.append(user_data)    
+    entered_data.append(user_data)
     return (entered_data)
+
 
 def validate_entry(value):
     try:
@@ -47,8 +54,9 @@ def validate_entry(value):
         print(f"Sorry invalid entry:{e}, let's try again! \n")
         return False
 
+
 def update_database(data, worksheet):
-    #from love sandwhiches
+    # from love sandwhiches
     print(f"Updating database...\n")
     worksheet_to_update = SHEET.worksheet(worksheet)
     worksheet_to_update.append_row(data)
@@ -58,19 +66,21 @@ def update_database(data, worksheet):
 def winnings_check():
     while True:
         answer = input(f"""
-Did you win anything in this tournament? 
+Did you win anything in this tournament?
 Please answer with 'y'(yes) or 'n'(no) \n
 """)
         if answer == "y":
             print(f"Congratulations!!! \n")
-            winnings = retrieve_user_data(f"Please enter how much you won \n", "Winnings €")
+            winnings = (retrieve_user_data(
+                f"Please enter how much you won \n", "Winnings €"))
             return winnings
         elif answer == "n":
             print("Better luck next time!")
             return ["0"]
         else:
-            print(f"Answer not clear, you typed '{answer}' please type 'y' or 'n'")
-
+            (print
+             (f"Answer not clear, you typed '{answer}'\
+            please type 'y' or 'n'"))
 
 
 def calculate_totals(worksheet1, worksheet2, worksheet3):
@@ -97,33 +107,39 @@ def calculate_totals(worksheet1, worksheet2, worksheet3):
             item = int(item)
             k += item
     winnings = k
-    return  losses, hours, winnings
+    return losses, hours, winnings
+
 
 def calculate_winrate(data1, data2, data3):
-   profit = data3 - data1
-   return_on_investment = round((((data3 - data1)/ data1 )*100), 2) 
-   hourly_rate = round((profit/data2), 2)
-   print(f"""
-   Your profit to date is: €{profit}
-   Your return on investment is: {return_on_investment}%
-   Your winrate is €{hourly_rate} per hour played.
-   """)
+    profit = data3 - data1
+    return_on_investment = round((((data3 - data1) / data1) * 100), 2)
+    hourly_rate = round((profit / data2), 2)
+    print(f"""
+    Your profit to date is: €{profit}
+    Your return on investment is: {return_on_investment}%
+    Your winrate is €{hourly_rate} per hour played.
+    """)
+
 
 def tournament_updates():
-    entry_fee = retrieve_user_data(f"Please enter tournament entry fee \n", "Entry Fee €")
+    entry_fee = (retrieve_user_data(f"Please \
+    enter tournament entry fee \n", "Entry Fee €"))
     update_database(entry_fee, "entry_fees")
     winnings = winnings_check()
     update_database(winnings, "winnings")
-    hours_played = retrieve_user_data("How many hours did you play in this tournament?", "Hours Played")
+    hours_played = (retrieve_user_data("How many hours did you play in this \
+     tournament?", "Hours Played"))
     update_database(hours_played, "hours_played")
 
+
 def winrate_update():
-    losses, hours, winnings = calculate_totals("entry_fees", "hours_played", "winnings")
+    losses, hours, winnings = (
+        calculate_totals("entry_fees", "hours_played", "winnings"))
     calculate_winrate(losses, hours, winnings)
 
 
-
 def main():
-    request_check()
-    
-main()  
+    user_options()
+
+
+main()
