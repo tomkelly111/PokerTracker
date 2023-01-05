@@ -59,6 +59,7 @@ def main():
     update_database(entry_fee, "entry_fees")
     winnings = winnings_check()
     update_database(winnings, "winnings")
-    
+    hours_played = get_entry_fee("How many hours did you play in this tournament?")
+    update_database(hours_played, "hours_played")
 
 main()
