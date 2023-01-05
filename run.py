@@ -15,7 +15,7 @@ def get_entry_fee():
         print("Please enter tournament entry fee.")
         print("Data should be a whole number and not contain commas.")
         print("Example: 1000")
-        entry_fee = input("Enter your latest tournament entry fee:\n")
+        entry_fee = input(f"Enter your latest tournament entry fee:\n")
         if validate_entry(entry_fee):
             print("Thank you!")
             break
@@ -31,6 +31,16 @@ def validate_entry(value):
         print(f"Sorry invalid entry:{e}, let's try again! \n")
         return False
 
+def winnings_check():
+    while True:
+        answer = input(f"Did you win anything in this tournament? Please answer with 'y'(yes) or 'n'(no) \n")
+        if answer == "y":
+            print("Congratulations")
+            break
+        elif answer == "n":
+            print("updating database")
+            return 0
+        else:
+            print(f"Answer not clear, you typed '{answer}' please type 'y' or 'n'")
 
-
-print(get_entry_fee())
+winnings_check()
