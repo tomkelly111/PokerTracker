@@ -1,4 +1,5 @@
 import gspread
+import sys,time
 from google.oauth2.service_account import Credentials
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -12,6 +13,11 @@ SHEET = GSPREAD_CLIENT.open("pokertracker")
 
 
 def user_options():
+    print_slow(f"""
+Welcome to PokerTracker... 
+Here you can add details of any tournaments you have played 
+and check your current winrate!\n
+    """)
     while True:
         answer = input(f"""
 What would you like to do? Type:
@@ -21,23 +27,23 @@ What would you like to do? Type:
         if answer == "1":
             tournament_updates()
         elif answer == "2":
-            print("Calculating winrate...")
+            print_slow("Calculating winrate...")
             winrate_update()
         elif answer == "x":
-            print("Thanks for using PokerTracker... Goodbye!")
+            print_slow("Thanks for using PokerTracker... Goodbye!")
             raise SystemExit
         else:
-            print(f"Answer not clear, you typed '{answer}'...")
+            print_slow(f"Answer not clear, you typed '{answer}'...")
 
 
 def retrieve_user_data(prompt, request):
     while True:
-        print(prompt)
-        print("Data should be a whole number and not contain any commas.")
-        print(f"Example: 1000 \n")
+        print_slow(prompt)
+        print_slow(f"\nData should be a whole number and not contain any commas.")
+        print_slow(f"\nExample: 1000 \n")
         user_data = input(f"{request}:\n")
         if validate_entry(user_data):
-            print("Thank you!")
+            print_slow("Thank you!")
             break
         else:
             continue
@@ -51,16 +57,16 @@ def validate_entry(value):
         int(value)
         return True
     except ValueError as e:
-        print(f"Sorry invalid entry:{e}, let's try again! \n")
+        print_slow(f"Sorry invalid entry:{e}, let's try again! \n")
         return False
 
 
 def update_database(data, worksheet):
     # from love sandwhiches
-    print(f"Updating database...\n")
+    print_slow(f"\nUpdating database...\n")
     worksheet_to_update = SHEET.worksheet(worksheet)
     worksheet_to_update.append_row(data)
-    print(f"Database updated successfully!\n")
+    print_slow(f"\nDatabase updated successfully!\n")
 
 
 def winnings_check():
@@ -70,17 +76,17 @@ Did you win anything in this tournament?
 Please answer with 'y'(yes) or 'n'(no) \n
 """)
         if answer == "y":
-            print(f"Congratulations!!! \n")
+            print_slow(f"\nCongratulations!!! \n")
             winnings = (retrieve_user_data(
                 "Please enter how much you won", "Winnings €"))
             return winnings
         elif answer == "n":
-            print("Better luck next time!")
+            print_slow(f"\nBetter luck next time!")
             return ["0"]
         else:
-            (print
-             (f"Answer not clear, you typed '{answer}'\
-            please type 'y' or 'n'"))
+            (print_slow
+             (f"\nAnswer not clear, you typed '{answer}'\
+            \nplease type 'y' or 'n'\n"))
 
 
 def calculate_totals(worksheet1, worksheet2, worksheet3):
@@ -114,7 +120,7 @@ def calculate_winrate(data1, data2, data3):
     profit = data3 - data1
     return_on_investment = round((((data3 - data1) / data1) * 100), 2)
     hourly_rate = round((profit / data2), 2)
-    print(f"""
+    print_slow(f"""
     Your profit to date is: €{profit}
     Your return on investment is: {return_on_investment}%
     Your winrate is €{hourly_rate} per hour played.
@@ -122,8 +128,8 @@ def calculate_winrate(data1, data2, data3):
 
 
 def tournament_updates():
-    entry_fee = (retrieve_user_data("Please \
-    enter tournament entry fee", "Entry Fee €"))
+    entry_fee = (retrieve_user_data("Please\
+    enter tournament entry fee.", "Entry Fee €"))
     update_database(entry_fee, "entry_fees")
     winnings = winnings_check()
     update_database(winnings, "winnings")
@@ -140,6 +146,16 @@ def winrate_update():
 
 def main():
     user_options()
+
+def print_slow(str):
+    # Function to make all text printed to CLI be typed out.
+    # Function was taken from 
+    # https://stackoverflow.com/questions/4099422/printing-slowly-simulate-typing
+    # and provided by user Sebastian
+    for letter in str:
+        sys.stdout.write(letter)
+        sys.stdout.flush()
+        time.sleep(0.03)
 
 
 main()
