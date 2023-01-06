@@ -57,7 +57,8 @@ def validate_entry(value):
         int(value)
         return True
     except ValueError as e:
-        print_slow(f"Sorry invalid entry:{e}, let's try again! \n")
+        print_slow(f"Your entry is not in the right format, you entered'{value}',\
+            \nlet's try again! \n")
         return False
 
 
