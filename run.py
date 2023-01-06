@@ -35,7 +35,7 @@ def retrieve_user_data(prompt, request):
         print(prompt)
         print("Data should be a whole number and not contain any commas.")
         print(f"Example: 1000 \n")
-        user_data = input(f"{request}:")
+        user_data = input(f"{request}:\n")
         if validate_entry(user_data):
             print("Thank you!")
             break
@@ -72,7 +72,7 @@ Please answer with 'y'(yes) or 'n'(no) \n
         if answer == "y":
             print(f"Congratulations!!! \n")
             winnings = (retrieve_user_data(
-                f"Please enter how much you won \n", "Winnings €"))
+                "Please enter how much you won", "Winnings €"))
             return winnings
         elif answer == "n":
             print("Better luck next time!")
@@ -122,8 +122,8 @@ def calculate_winrate(data1, data2, data3):
 
 
 def tournament_updates():
-    entry_fee = (retrieve_user_data(f"Please \
-    enter tournament entry fee \n", "Entry Fee €"))
+    entry_fee = (retrieve_user_data("Please \
+    enter tournament entry fee", "Entry Fee €"))
     update_database(entry_fee, "entry_fees")
     winnings = winnings_check()
     update_database(winnings, "winnings")
