@@ -40,7 +40,9 @@ What would you like to do? Type:
             print_slow("Calculating winrate...")
             winrate_update()
         elif answer == "x":
-            print_slow("Thanks for using PokerTracker... Goodbye!")
+            print_slow(f"Thanks for using PokerTracker...\n")
+            goodbye = pyfiglet.figlet_format("GOODBYE", font = "slant"  )
+            print(Fore.CYAN + Style.BRIGHT + goodbye)
             raise SystemExit
         else:
             print_slow(f"Answer not clear, you typed '{answer}'...")
@@ -214,6 +216,7 @@ def main():
     """
     logo = pyfiglet.figlet_format("Poker Tracker", font = "slant"  )
     print(Fore.RED + Style.BRIGHT + logo)
+    print(Fore.CYAN + "-------The Pro's Favourite Poker Tracking Software-------")
     print_slow(f"""
 Welcome to PokerTracker... 
 Here you can add details of any tournaments you have played 
