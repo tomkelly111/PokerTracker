@@ -109,7 +109,7 @@ Did you win anything in this tournament?
 Please answer with 'y'(yes) or 'n'(no) \n
 """)
         if answer == "y":
-            congrats = pyfiglet.figlet_format("CONGRATULATIONS!", font = "slant"  )
+            congrats = pyfiglet.figlet_format("CONGRATS!", font = "slant"  )
             print(Fore.RED + Style.BRIGHT + congrats)
             winnings = (retrieve_user_data(
                 "Please enter how much you won", "Winnings €"))
@@ -222,7 +222,7 @@ def main():
     print(Fore.RED + Style.BRIGHT + logo2)
     print(Fore.CYAN + "-------The Pro's Favourite Poker Tracking Software-------")
     print_slow(f"Welcome to PokerTracker...\n\
-Here you can add details of any tournaments you have played \
+Here you can add details of any tournaments you have played\n \
 and check your current winrate!")
     user_options()
 
