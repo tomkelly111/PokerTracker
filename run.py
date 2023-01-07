@@ -1,6 +1,5 @@
 import gspread
 import pyfiglet
-from pyfiglet import Figlet
 """
 Below colorama import and code used elsewhere in
 programme was taken from tutorial by Tech With Time
