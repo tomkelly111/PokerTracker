@@ -170,10 +170,12 @@ def calculate_winrate(data1, data2, data3):
     profit = data3 - data1
     return_on_investment = round((((profit) / data1) * 100), 2)
     hourly_rate = round((profit / data2), 2)
-    print_slow(f"""
+    print(Fore.CYAN + f"""
+    ------------------  WINRATE  ------------------
     Your profit to date is: €{profit}
     Your return on investment is: {return_on_investment}%
     Your winrate is €{hourly_rate} per hour played.
+    -----------------------------------------------
     """)
 
 
@@ -188,13 +190,13 @@ def tournament_updates():
     Tetrieve_data function is then ran a final time to retrieve hours played,
     this is then also added to the database.
     """
-    entry_fee = (retrieve_user_data("Please\
-    enter tournament entry fee.", "Entry Fee €"))
+    entry_fee = (retrieve_user_data("Please \
+enter tournament entry fee.", "Entry Fee €"))
     update_database(entry_fee, "entry_fees")
     winnings = winnings_check()
     update_database(winnings, "winnings")
     hours_played = (retrieve_user_data("How many hours did you play in this \
-     tournament?", "Hours Played"))
+tournament?", "Hours Played"))
     update_database(hours_played, "hours_played")
 
 
@@ -219,9 +221,9 @@ def main():
     logo2 = pyfiglet.figlet_format(f"   Tracker", font="slant")
     print(Fore.RED + Style.BRIGHT + logo2)
     print(Fore.CYAN + "-------The Pro's Favourite Poker Tracking Software-------")
-    print_slow("Welcome to PokerTracker... \
-                Here you can add details of any tournaments you have played \
-                and check your current winrate!")
+    print_slow(f"Welcome to PokerTracker...\n\
+Here you can add details of any tournaments you have played \
+and check your current winrate!")
     user_options()
 
 def print_slow(str):
