@@ -1,5 +1,13 @@
 import gspread
-import pyfiglet 
+import pyfiglet
+"""
+Below colorama import and code used elsewhere in
+programme was taken from tutorial by Tech With Time
+available here: https://www.youtube.com/watch?v=u51Zjlnui4Y
+"""
+import colorama
+from colorama import Fore, Style
+colorama.init(autoreset=True)
 import sys,time
 from google.oauth2.service_account import Credentials
 SCOPE = [
@@ -99,11 +107,14 @@ Did you win anything in this tournament?
 Please answer with 'y'(yes) or 'n'(no) \n
 """)
         if answer == "y":
-            print_slow(f"\nCongratulations!!! \n")
+            congrats = pyfiglet.figlet_format("CONGRATULATIONS!", font = "slant"  )
+            print(Fore.RED + Style.BRIGHT + congrats)
             winnings = (retrieve_user_data(
                 "Please enter how much you won", "Winnings €"))
             return winnings
         elif answer == "n":
+            sorry = pyfiglet.figlet_format("Unlucky", font = "slant"  )
+            print(Fore.RED + Style.BRIGHT + sorry)
             print_slow(f"\nBetter luck next time!")
             return ["0"]
         else:
@@ -202,7 +213,7 @@ def main():
     https://www.geeksforgeeks.org/python-ascii-art-using-pyfiglet-module/
     """
     logo = pyfiglet.figlet_format("Poker Tracker", font = "slant"  )
-    print(logo)
+    print(Fore.RED + Style.BRIGHT + logo)
     print_slow(f"""
 Welcome to PokerTracker... 
 Here you can add details of any tournaments you have played 
