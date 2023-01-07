@@ -214,16 +214,14 @@ def main():
     Code for logo is taken from:
     https://www.geeksforgeeks.org/python-ascii-art-using-pyfiglet-module/
     """
-    logo = pyfiglet.figlet_format(f"     Poker", font = "slant"  )
+    logo = pyfiglet.figlet_format(f"     Poker", font="slant")
     print(Fore.RED + Style.BRIGHT + logo)
-    logo2 = pyfiglet.figlet_format(f"   Tracker", font = "slant"  )
+    logo2 = pyfiglet.figlet_format(f"   Tracker", font="slant")
     print(Fore.RED + Style.BRIGHT + logo2)
     print(Fore.CYAN + "-------The Pro's Favourite Poker Tracking Software-------")
-    print_slow(f"""
-Welcome to PokerTracker... 
-Here you can add details of any tournaments you have played 
-and check your current winrate!\n
-    """)
+    print_slow("Welcome to PokerTracker... \
+                Here you can add details of any tournaments you have played \
+                and check your current winrate!")
     user_options()
 
 def print_slow(str):
