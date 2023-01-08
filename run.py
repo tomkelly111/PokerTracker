@@ -56,7 +56,7 @@ commas. A while loop runs until data entered is valid and then it is
 added to an empty list so data can be stored in googledocs.
     """
     while True:
-        print_slow(prompt)
+        print_slow(f"\n{prompt}")
         print_slow("\nData should be a whole number \
 and not contain any commas.")
         print_slow("\nExample: 1000 \n")
@@ -86,15 +86,20 @@ and an error message.
         return False
 
 
-def update_database(data, worksheet):
+def update_database(thelist):
     """
     Takes user input and adds it to the relevant workheet in the the googledoc.
     Code for this function has been copied from the Love Sandwhiches
     wlakthrough project.
     """
     print_slow("\nUpdating database...\n")
-    worksheet_to_update = SHEET.worksheet(worksheet)
-    worksheet_to_update.append_row(data)
+    print_slow("\n......\n")
+    for key, value in thelist.items():
+        data = value
+        worksheet = key
+        worksheet_to_update = SHEET.worksheet(worksheet)
+        worksheet_to_update.append_row(data)
+    print_slow("\n..........\n")
     print_slow("\nDatabase updated successfully!\n")
 
 
@@ -108,7 +113,7 @@ an error message is displayed.
     """
     while True:
         answer = input("""
-Did you win anything in this tournament?
+\nDid you win anything in this tournament?
 Please answer with 'y'(yes) or 'n'(no) \n
 """)
         if answer == "y":
@@ -195,12 +200,12 @@ def tournament_updates():
     """
     entry_fee = (retrieve_user_data("Please \
 enter tournament entry fee.", "Entry Fee €"))
-    update_database(entry_fee, "entry_fees")
+    #update_database(entry_fee, "entry_fees")
     winnings = winnings_check()
-    update_database(winnings, "winnings")
+    #update_database(winnings, "winnings")
     hours_played = (retrieve_user_data("How many hours did you play in this \
 tournament?", "Hours Played"))
-    update_database(hours_played, "hours_played")
+    update_database({"entry_fees":entry_fee, "winnings":winnings, "hours_played":hours_played})
 
 
 def winrate_update():
@@ -223,8 +228,8 @@ def main():
     print(Fore.RED + Style.BRIGHT + logo)
     logo2 = pyfiglet.figlet_format(f"   Tracker", font="slant")
     print(Fore.RED + Style.BRIGHT + logo2)
-    print(Fore.CYAN + "-------The Pro's Favourite\
-         Poker Tracking Software-------")
+    print(Fore.CYAN + "-------The Pro's Favourite \
+Poker Tracking Software-------")
     print_slow("Welcome to PokerTracker...\n\
 Here you can add details of any tournaments you have played\n\
 and check your current winrate!\n")
