@@ -92,7 +92,7 @@ you entered'{value}', \nlet's try again! \n")
         return False
 
 
-def update_database(thelist):
+def update_database(the_dict):
     """
     Takes user input and adds it to the relevant workheet in the the googledoc.
     Code for this function has been copied from the Love Sandwhiches
@@ -100,7 +100,7 @@ def update_database(thelist):
     """
     print_slow("\nUpdating database...\n")
     print_slow("\n......\n")
-    for key, value in thelist.items():
+    for key, value in the_dict.items():
         data = value
         worksheet = key
         worksheet_to_update = SHEET.worksheet(worksheet)
@@ -208,12 +208,11 @@ def tournament_updates():
     """
     entry_fee = (retrieve_user_data("Please \
 enter tournament entry fee.", "Entry Fee €", 120))
-    #update_database(entry_fee, "entry_fees")
     winnings = winnings_check()
-    #update_database(winnings, "winnings")
     hours_played = (retrieve_user_data("How many hours did you play in this \
 tournament?", "Hours Played", 6))
-    update_database({"entry_fees":entry_fee, "winnings":winnings, "hours_played":hours_played})
+    (update_database({"entry_fees": entry_fee, "winnings": winnings,
+     "hours_played": hours_played}))
 
 
 def winrate_update():
