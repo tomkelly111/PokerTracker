@@ -40,13 +40,17 @@ What would you like to do? Type:
         elif answer == "2":
             print_slow("Calculating winrate...")
             winrate_update()
-        elif answer == "x":
-            print_slow("Thanks for using PokerTracker...\n")
-            goodbye = pyfiglet.figlet_format("GOODBYE", font="slant")
-            print(Fore.CYAN + Style.BRIGHT + goodbye)
-            raise SystemExit
+        elif answer == "x" or answer == "X":
+            exit_system()
         else:
             print_slow(f"Answer not clear, you typed '{answer}'...")
+
+
+def exit_system():
+        print_slow("Thanks for using PokerTracker...\n")
+        goodbye = pyfiglet.figlet_format("GOODBYE", font="slant")
+        print(Fore.CYAN + Style.BRIGHT + goodbye)
+        raise SystemExit
 
 
 def retrieve_user_data(prompt, request, example):
@@ -77,12 +81,14 @@ Validates data entered by user. Checks entry can be convereted from
 a string to an int and returns True and if not returns an False
 and an error message.
     """
+    if value == "x" or value == "X":
+        exit_system()
     try:
         int(value)
         return True
     except ValueError as e:
         print_slow(f"Your entry is not in the right format,\
-             you entered'{value}', \nlet's try again! \n")
+you entered'{value}', \nlet's try again! \n")
         return False
 
 
