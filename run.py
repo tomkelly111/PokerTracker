@@ -32,7 +32,7 @@ def user_options():
     while True:
         answer = input("""
 What would you like to do? Type:
-'1' to add tournament details,
+'1' to add details of a tournament you played,
 '2' to view your current winrate or
 'x' to exit. \n""")
         if answer == "1":
@@ -49,7 +49,7 @@ What would you like to do? Type:
             print_slow(f"Answer not clear, you typed '{answer}'...")
 
 
-def retrieve_user_data(prompt, request):
+def retrieve_user_data(prompt, request, example):
     """
 Takes input from user. Input must be a whole number not containing any
 commas. A while loop runs until data entered is valid and then it is
@@ -59,10 +59,10 @@ added to an empty list so data can be stored in googledocs.
         print_slow(f"\n{prompt}")
         print_slow("\nData should be a whole number \
 and not contain any commas.")
-        print_slow("\nExample: 1000 \n")
+        print_slow(f"\nExample: {example} \n")
         user_data = input(f"{request}:\n")
         if validate_entry(user_data):
-            print_slow("Thank you!")
+            print_slow("\nThank you!")
             break
         else:
             continue
@@ -120,7 +120,7 @@ Please answer with 'y'(yes) or 'n'(no) \n
             congrats = pyfiglet.figlet_format("CONGRATS!", font="slant")
             print(Fore.RED + Style.BRIGHT + congrats)
             winnings = (retrieve_user_data(
-                "Please enter how much you won", "Winnings €"))
+                "Please enter how much you won", "Winnings €", 3000))
             return winnings
         elif answer == "n":
             sorry = pyfiglet.figlet_format("Unlucky", font="slant")
@@ -199,12 +199,12 @@ def tournament_updates():
     this is then also added to the database.
     """
     entry_fee = (retrieve_user_data("Please \
-enter tournament entry fee.", "Entry Fee €"))
+enter tournament entry fee.", "Entry Fee €", 120))
     #update_database(entry_fee, "entry_fees")
     winnings = winnings_check()
     #update_database(winnings, "winnings")
     hours_played = (retrieve_user_data("How many hours did you play in this \
-tournament?", "Hours Played"))
+tournament?", "Hours Played", 6))
     update_database({"entry_fees":entry_fee, "winnings":winnings, "hours_played":hours_played})
 
 
@@ -246,7 +246,7 @@ def print_slow(str):
     for letter in str:
         sys.stdout.write(letter)
         sys.stdout.flush()
-        time.sleep(0.03)
+        time.sleep(0.02)
 
 
 main()
