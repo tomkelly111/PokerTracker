@@ -133,6 +133,8 @@ Please answer with 'y'(yes) or 'n'(no) \n
             print(Fore.RED + Style.BRIGHT + sorry)
             print_slow("\nBetter luck next time!")
             return ["0"]
+        elif answer == "x" or answer == "X":
+            exit_system()
         else:
             (print_slow
              (f"\nAnswer not clear, you typed '{answer}'\
