@@ -47,22 +47,23 @@ What would you like to do? Type:
 
 
 def exit_system():
-        print_slow("Thanks for using PokerTracker...\n")
-        goodbye = pyfiglet.figlet_format("GOODBYE", font="slant")
-        print(Fore.CYAN + Style.BRIGHT + goodbye)
-        raise SystemExit
+    print_slow("Thanks for using PokerTracker...\n")
+    goodbye = pyfiglet.figlet_format("GOODBYE", font="slant")
+    print(Fore.CYAN + Style.BRIGHT + goodbye)
+    raise SystemExit
 
 
 def retrieve_user_data(prompt, request, example):
     """
-Takes input from user. Input must be a whole number not containing any
-commas. A while loop runs until data entered is valid and then it is
-added to an empty list so data can be stored in googledocs.
+    Takes input from user. Input must be a whole
+    number not containing any commas. A while loop runs until
+    data entered is valid and then it is added to an empty list
+    so data can be stored in googledocs.
     """
     while True:
         print_slow(f"\n{prompt}")
-        print_slow("\nData should be a whole number \
-and not contain any commas.")
+        (print_slow
+         ("\nData should be a whole number and not contain any commas."))
         print_slow(f"\nExample: {example} \n")
         user_data = input(f"{request}:\n")
         if validate_entry(user_data):
@@ -77,9 +78,9 @@ and not contain any commas.")
 
 def validate_entry(value):
     """
-Validates data entered by user. Checks entry can be convereted from
-a string to an int and returns True and if not returns an False
-and an error message.
+    Validates data entered by user.
+    Checks entry can be convereted from a string to an int and returns
+    True and if not returns an False and an error message.
     """
     if value == "x" or value == "X":
         exit_system()
@@ -96,7 +97,7 @@ def update_database(the_dict):
     """
     Takes user input and adds it to the relevant workheet in the the googledoc.
     Code for this function has been copied from the Love Sandwhiches
-    wlakthrough project.
+    walkthrough project.
     """
     print_slow("\nUpdating database...\n")
     print_slow("\n......\n")
@@ -111,11 +112,11 @@ def update_database(the_dict):
 
 def winnings_check():
     """
-Asks user whether they won anything in the tournament. If yes
-the retrieve data function runs to collect the prize data and
-entry is returned. If no prize was won a value of 0 is returned.
-A while loop runs until a valid answer is provided and if not
-an error message is displayed.
+    Asks user whether they won anything in the tournament. If yes
+    the retrieve data function runs to collect the prize data and
+    entry is returned. If no prize was won a value of 0 is returned.
+    A while loop runs until a valid answer is provided and if not
+    an error message is displayed.
     """
     while True:
         answer = input("""
@@ -141,13 +142,13 @@ Please answer with 'y'(yes) or 'n'(no) \n
             \nplease type 'y' or 'n'\n"))
 
 
-def calculate_totals(worksheet1, worksheet2, worksheet3):
+def calculate_totals(entry_fees, hours_played, winnings):
     """
     Retrieves data from worksheet iterates through adding it to a vaiable.
     Does this for three worksheets and returns three variables -
     losses, hours and winnings.
     """
-    lists = SHEET.worksheet(worksheet1).get_all_values()
+    lists = SHEET.worksheet(entry_fees).get_all_values()
     i = 0
     for list in lists:
         for item in list:
@@ -155,7 +156,7 @@ def calculate_totals(worksheet1, worksheet2, worksheet3):
             i += item
     losses = i
 
-    lists = SHEET.worksheet(worksheet2).get_all_values()
+    lists = SHEET.worksheet(hours_played).get_all_values()
     j = 0
     for list in lists:
         for item in list:
@@ -163,7 +164,7 @@ def calculate_totals(worksheet1, worksheet2, worksheet3):
             j += item
     hours = j
 
-    lists = SHEET.worksheet(worksheet3).get_all_values()
+    lists = SHEET.worksheet(winnings).get_all_values()
     k = 0
     for list in lists:
         for item in list:
@@ -173,7 +174,7 @@ def calculate_totals(worksheet1, worksheet2, worksheet3):
     return losses, hours, winnings
 
 
-def calculate_winrate(data1, data2, data3):
+def calculate_winrate(losses, hours_played, winnings):
     """
     Takes three variables (losses, hours and winnings) and
     performs calculations to return
@@ -183,9 +184,9 @@ def calculate_winrate(data1, data2, data3):
     and multiplying by 100.
     Hourly winrate is calculated by dividing profit by hours.
     """
-    profit = data3 - data1
-    return_on_investment = round((((profit) / data1) * 100), 2)
-    hourly_rate = round((profit / data2), 2)
+    profit = winnings - losses
+    return_on_investment = round((((profit) / losses) * 100), 2)
+    hourly_rate = round((profit / hours_played), 2)
     print(Fore.CYAN + f"""
     ------------------  WINRATE  ------------------
     Your profit to date is: €{profit}
