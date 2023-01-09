@@ -142,36 +142,41 @@ Please answer with 'y'(yes) or 'n'(no) \n
             \nplease type 'y' or 'n'\n"))
 
 
-def calculate_totals(entry_fees, hours_played, winnings):
+def calculate_totals(*worksheet_names):
     """
     Retrieves data from worksheet iterates through adding it to a vaiable.
     Does this for three worksheets and returns three variables -
     losses, hours and winnings.
     """
-    lists = SHEET.worksheet(entry_fees).get_all_values()
-    i = 0
-    for list in lists:
-        for item in list:
-            item = int(item)
-            i += item
-    losses = i
+    answer = []
+    for item in worksheet_names:
+        lists = SHEET.worksheet(item).get_all_values()
+        i = 0
+        for list in lists:
+            for item in list:
+                item = int(item)
+                i += item
+        answer.append(i)
+    for item in answer:
+        return answer
+        
 
-    lists = SHEET.worksheet(hours_played).get_all_values()
-    j = 0
-    for list in lists:
-        for item in list:
-            item = int(item)
-            j += item
-    hours = j
+    # lists = SHEET.worksheet(hours_played).get_all_values()
+    # j = 0
+    # for list in lists:
+    #     for item in list:
+    #         item = int(item)
+    #         j += item
+    # hours = j
 
-    lists = SHEET.worksheet(winnings).get_all_values()
-    k = 0
-    for list in lists:
-        for item in list:
-            item = int(item)
-            k += item
-    winnings = k
-    return losses, hours, winnings
+    # lists = SHEET.worksheet(winnings).get_all_values()
+    # k = 0
+    # for list in lists:
+    #     for item in list:
+    #         item = int(item)
+    #         k += item
+    # winnings = k
+    # return losses, hours, winnings
 
 
 def calculate_winrate(losses, hours_played, winnings):
