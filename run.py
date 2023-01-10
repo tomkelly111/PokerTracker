@@ -33,18 +33,46 @@ def user_options():
         answer = input("""
 What would you like to do? Type:
 '1' to add details of a tournament you played,
-'2' to view your current winrate or
-'x' to exit. \n""")
+'2' to view your current winrate,
+'3' to delete the last tournament entry or
+'x' to exit (at any time). \n""")
         if answer == "1":
             tournament_updates()
         elif answer == "2":
             print_slow("Calculating winrate...")
             winrate_update()
+        elif answer == "3":
+            delete_last_entry("entry_fees", "hours_played", "winnings")
         elif answer == "x" or answer == "X":
             exit_system()
         else:
             print_slow(f"Answer not clear, you typed '{answer}'...")
 
+def delete_last_entry(*worksheet_to_amend):
+    """
+    Loops through a tuple of worksheet names and for each one
+    finds the number of entries in that worksheet and
+    deletes the last entry.
+
+    """
+    print_slow("\nDeleting last tournament entry...\n")
+    print_slow("\n......\n")
+    for item in worksheet_to_amend:
+
+        entries = SHEET.worksheet(item).get_all_values()
+        i = int((len(entries)))
+        sheet_to_amend = SHEET.worksheet(item)
+        sheet_to_amend.delete_rows(i)
+    print_slow("\nLast tournament deleted...\n")
+        
+
+    # for key, value in the_dict.items():
+    #     data = value
+    #     worksheet = key
+    #     worksheet_to_update = SHEET.worksheet(worksheet)
+    #     worksheet_to_update.append_row(data)
+    # print_slow("\n..........\n")
+    # print_slow("\nDatabase updated successfully!\n")
 
 def exit_system():
     print_slow("Thanks for using PokerTracker...\n")
@@ -241,7 +269,7 @@ def main():
     print(Fore.RED + Style.BRIGHT + logo)
     logo2 = pyfiglet.figlet_format(f"   Tracker", font="slant")
     print(Fore.RED + Style.BRIGHT + logo2)
-    print(Fore.CYAN + "-------The Pro's Favourite \
+    print(Fore.CYAN + "-------The Pro's Recommended \
 Poker Tracking Software-------")
     print_slow("Welcome to PokerTracker...\n\
 Here you can add details of any tournaments you have played\n\
