@@ -106,23 +106,39 @@ The application link was provided to four users all of whom were able to use the
 #### Remaining Bugs
 - none
 
-
+## LIBRARIES
+The following libraries were used:
+- GSpread - to access the Google Docs sheet where data is stored
+- Pyfiglet - to use ASCII font to provide styling throughout the programme
+- Sys & Time - to create a function which types out text on the display rather than showing all at once
+- Colorama - used to change to color of text throughout the programme
+- 
 ## DEPLOYMENT
-### Publication
-In order to publish the site, deployment was carried out using GitHub pages. In order to deploy the site the following steps were followed:
-- Open the GitHub repository
-- Navigate to the "settings" tab
-- On the left hand side of the page scroll down and select "pages" 
-- Under "source" select "deploy from a branch"
-- Under "branch" select "main"
-- Click "save"
-- The live link is: https://tomkelly111.github.io/war-games/
+
+The project was deployed using Code Institute's mock terminal for Heroku. To do this the following steps were followed:
+- From the Heroku dashboard, create a new app;
+- Navigate to settings tab;
+- Create confg var with key "CREDS" and for  value copy and paste the contents of creds.json file - click add;
+- Create config var with key "PORT" and value "8000" - click add;
+- Next add buildpacks to install dependencies;
+- Click add buildpack and select python then save changes. Then select node.js and click save again;
+- Buildpacks must be in this order with python first and node.js second;
+- Next navigate to deploy tab;
+- Select github as deplyment method, confirm connect to github;
+- Search for github repository and once found click connect; and
+- Enable automatic deployment to deploy.
 
 
 
 ## CREDITS
-
-
+Thanks to:
+- Code Institute for the deployment terminal.
+- Code Institute for providing the Gitpod template.
+- Youtuber - Tech With Tim - who provided a tutorial for using Colorama available [here.](https://www.youtube.com/watch?v=u51Zjlnui4Y)
+- https://www.geeksforgeeks.org/python-ascii-art-using-pyfiglet-module/
+- Instructions on how to use Pyfiglet to utilise ASCII fonts was take from [here.](https://www.geeksforgeeks.org/python-ascii-art-using-pyfiglet-module/)
+- User Sebastian on Stack Overflow who provided the function to make sure all text printed to CLI is typed out slowly, available [here.](https://stackoverflow.com/questions/4099422/printing-slowly-simulate-typing)
+- Code for updating the Google Docs sheets was taken from the Code Institute's Love Sandwhiches Walk Through Project.
 		
 
 
