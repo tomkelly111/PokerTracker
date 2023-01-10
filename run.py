@@ -11,6 +11,10 @@ available here: https://www.youtube.com/watch?v=u51Zjlnui4Y
 import colorama
 from colorama import Fore, Style
 colorama.init(autoreset=True)
+"""
+Below SCOPE and CREDS etc are taken from Code Institute's
+Love Sandwhiches walkthrough project
+"""
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
     "https://www.googleapis.com/auth/drive.file",
@@ -51,12 +55,12 @@ What would you like to do? Type:
         else:
             print_slow(f"Answer not clear, you typed '{answer}'...")
 
+
 def delete_last_entry(*worksheet_to_amend):
     """
     Loops through a tuple of worksheet names and for each one
     finds the number of entries in that worksheet and
     deletes the last entry.
-
     """
     print_slow("\nDeleting last tournament entry...\n")
     print_slow("\n......\n")
@@ -68,11 +72,11 @@ def delete_last_entry(*worksheet_to_amend):
         sheet_to_amend.delete_rows(i)
     print_slow("\nLast tournament deleted...\n")
 
+
 def delete_all_entries(*worksheet_to_amend):
     """
     Loops through a tuple of worksheet names and for each one
     deletes all data.
-
     """
     while True:
         answer = input("""
@@ -93,6 +97,7 @@ Are you sure you want to delete all entries stored? Type:
             exit_system()
         else:
             print_slow(f"Answer not clear, you typed '{answer}'...")
+
 
 def exit_system():
     print_slow("Thanks for using PokerTracker...\n")
@@ -207,8 +212,6 @@ def calculate_totals(*worksheet_names):
         answer.append(i)
     for item in answer:
         return answer
-        
-
     # lists = SHEET.worksheet(hours_played).get_all_values()
     # j = 0
     # for list in lists:
