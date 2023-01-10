@@ -34,7 +34,8 @@ def user_options():
 What would you like to do? Type:
 '1' to add details of a tournament you played,
 '2' to view your current winrate,
-'3' to delete the last tournament entry or
+'3' to delete the last tournament entry,
+'4' to delete all entries stored or
 'x' to exit (at any time). \n""")
         if answer == "1":
             tournament_updates()
@@ -43,6 +44,8 @@ What would you like to do? Type:
             winrate_update()
         elif answer == "3":
             delete_last_entry("entry_fees", "hours_played", "winnings")
+        elif answer == "4":
+            delete_all_entries("entry_fees", "hours_played", "winnings")
         elif answer == "x" or answer == "X":
             exit_system()
         else:
@@ -64,15 +67,32 @@ def delete_last_entry(*worksheet_to_amend):
         sheet_to_amend = SHEET.worksheet(item)
         sheet_to_amend.delete_rows(i)
     print_slow("\nLast tournament deleted...\n")
-        
 
-    # for key, value in the_dict.items():
-    #     data = value
-    #     worksheet = key
-    #     worksheet_to_update = SHEET.worksheet(worksheet)
-    #     worksheet_to_update.append_row(data)
-    # print_slow("\n..........\n")
-    # print_slow("\nDatabase updated successfully!\n")
+def delete_all_entries(*worksheet_to_amend):
+    """
+    Loops through a tuple of worksheet names and for each one
+    deletes all data.
+
+    """
+    while True:
+        answer = input("""
+Are you sure you want to delete all entries stored? Type:
+'y' to delete all entries or
+'n' to cancel \n""")
+        if answer == "y" or answer == "X":
+            print_slow("\nDeleting data...\n")
+            print_slow("\n......\n")
+            for item in worksheet_to_amend:
+                sheet_to_amend = SHEET.worksheet(item)
+                sheet_to_amend.clear()
+            print_slow("\nAll data is now deleted...\n")
+            break
+        elif answer == "n" or answer == "N":
+            break
+        elif answer == "x" or answer == "X":
+            exit_system()
+        else:
+            print_slow(f"Answer not clear, you typed '{answer}'...")
 
 def exit_system():
     print_slow("Thanks for using PokerTracker...\n")
