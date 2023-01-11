@@ -44,7 +44,7 @@ What would you like to do? Type:
         if answer == "1":
             tournament_updates()
         elif answer == "2":
-            print_slow("Calculating winrate...")
+            print_slow("Calculating winrate...\n")
             winrate_update()
         elif answer == "3":
             delete_last_entry("entry_fees", "hours_played", "winnings")
@@ -187,7 +187,7 @@ Please answer with 'y'(yes) or 'n'(no) \n
         elif answer == "n":
             sorry = pyfiglet.figlet_format("Unlucky", font="slant")
             print(Fore.RED + Style.BRIGHT + sorry)
-            print_slow("\nBetter luck next time!")
+            print_slow("\nBetter luck next time!\n")
             return ["0"]
         elif answer == "x" or answer == "X":
             exit_system()
@@ -212,24 +212,7 @@ def calculate_totals(*worksheet_names):
                 item = int(item)
                 i += item
         answer.append(i)
-    for item in answer:
-        return answer
-    # lists = SHEET.worksheet(hours_played).get_all_values()
-    # j = 0
-    # for list in lists:
-    #     for item in list:
-    #         item = int(item)
-    #         j += item
-    # hours = j
-
-    # lists = SHEET.worksheet(winnings).get_all_values()
-    # k = 0
-    # for list in lists:
-    #     for item in list:
-    #         item = int(item)
-    #         k += item
-    # winnings = k
-    # return losses, hours, winnings
+    return (answer[0], answer[1], answer[2])
 
 
 def calculate_winrate(losses, hours_played, winnings):
@@ -242,16 +225,20 @@ def calculate_winrate(losses, hours_played, winnings):
     and multiplying by 100.
     Hourly winrate is calculated by dividing profit by hours.
     """
-    profit = winnings - losses
-    return_on_investment = round((((profit) / losses) * 100), 2)
-    hourly_rate = round((profit / hours_played), 2)
-    print(Fore.CYAN + f"""
+    if losses == 0:
+        print_slow("\nDatabase is empty, please \
+add tournament details\n")
+    else:
+        profit = winnings - losses
+        return_on_investment = round((((profit) / losses) * 100), 2)
+        hourly_rate = round((profit / hours_played), 2)
+        print(Fore.CYAN + f"""
     ------------------  WINRATE  ------------------
     Your profit to date is: €{profit}
     Your return on investment is: {return_on_investment}%
     Your winrate is €{hourly_rate} per hour played.
     -----------------------------------------------
-    """)
+        """)
 
 
 def tournament_updates():
