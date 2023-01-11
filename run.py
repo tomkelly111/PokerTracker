@@ -65,7 +65,6 @@ def delete_last_entry(*worksheet_to_amend):
     print_slow("\nDeleting last tournament entry...\n")
     print_slow("\n......\n")
     for item in worksheet_to_amend:
-
         entries = SHEET.worksheet(item).get_all_values()
         i = int((len(entries)))
         sheet_to_amend = SHEET.worksheet(item)
@@ -100,6 +99,9 @@ Are you sure you want to delete all entries stored? Type:
 
 
 def exit_system():
+    """
+    Displays a goodbye message before exiting the program.
+    """
     print_slow("Thanks for using PokerTracker...\n")
     goodbye = pyfiglet.figlet_format("GOODBYE", font="slant")
     print(Fore.CYAN + Style.BRIGHT + goodbye)
@@ -126,7 +128,7 @@ def retrieve_user_data(prompt, request, example):
             continue
     entered_data = []
     entered_data.append(user_data)
-    return (entered_data)
+    return entered_data
 
 
 def validate_entry(value):
