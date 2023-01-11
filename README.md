@@ -15,7 +15,7 @@ The welcome page displays the Poker Tracker logo, a welcome message and then off
 <img width="392" alt="image" src="https://user-images.githubusercontent.com/111172617/211643598-1312cf03-c4dc-4967-8f65-734e9117950a.png">
 
 ### User Choices
-Here the User is offered a choice of what they would like to do. They have the option to update the database with tournament details or view their current winrate which is based on previously entered data. Additionally there is the option to delete the last tournament entry or delete all data stored. There is also the option to exit the program. If the User enters an invalid option an error message displays and the options are displayed again.
+Here the User is offered a choice of what they would like to do. They have the option to update the database with tournament details or view their current winrate which is based on previously entered data. Additionally there is the option to delete the last tournament entry or delete all data stored. There is also the option to exit the program. If the User enters an invalid option an error message displays and the options are displayed again. This feature is available at any stage throughout the programme.
 
 <img width="384" alt="image" src="https://user-images.githubusercontent.com/111172617/211643419-bf12b183-590a-4920-95bc-fcebeed76241.png">
 
@@ -42,12 +42,12 @@ The User is then asked to input the number of hours they spent playing the tourn
 
 
 ### Updating Database
-Once the User has provided all 3 inputs, the inputs are added to the database and the User receives a message confirming when this is done. Initially the programme added the User's input to the database immediately after it was entered however, it was realised that if the User quit the program early there would be incomplete data stored in the data base which would effect the winrate calculations. Instead all of the User's inputs are now added to the database at once to ensure this doesn't happen.
+Once the User has provided all 3 inputs, the inputs are added to the database and the User receives a message confirming when this is done. Initially the programme added the User's input to the database immediately after it was entered however, it was realised that if the User quit the program early there would be incomplete data stored in the database which would effect the winrate calculations. Instead all of the User's inputs are now added to the database at once to ensure this doesn't happen.
 
 Once the database is updated the User is returned to the User Choices screen in case they have more tournament details to add.
 
 ### Calculate Winrate
-If the user selects to calculate winrate then a function is ran that totals all of the data on all 3 worksheets and performs various calculations to provide the User's overall Profit, Return on Investment and Hourly Winrate. Once this information is provided the User is returned to the User Choices screen in case they have more tournament details to add. Profit is determined by subtracting the total costs (i.e. all entries from the "entry_fee" worksheet) from the total winnings (i.e. all entries from the "winnings" worksheet). Return on Investment is calculated by dividing the profit by the total costs and multiplying by 100. Finally, the Hourly Winrate is calculated by taking profit and dividing it by the total hours played (i.e. all entries from the the "hours_played).
+If the user selects to calculate winrate then a function is ran that totals all of the data on all 3 worksheets and performs various calculations to provide the User's overall Profit, Return on Investment and Hourly Winrate. Once this information is provided the User is returned to the User Choices screen. Profit is determined by subtracting the total costs (i.e. all entries from the "entry_fee" worksheet) from the total winnings (i.e. all entries from the "winnings" worksheet). Return on Investment is calculated by dividing the profit by the total costs and multiplying by 100. Finally, the Hourly Winrate is calculated by taking profit and dividing it by the total hours played (i.e. all entries from the the "hours_played).
 
 <img width="356" alt="image" src="https://user-images.githubusercontent.com/111172617/211644578-936d65e8-87c8-4c50-934c-1ec8d391adf4.png">
 
@@ -59,10 +59,10 @@ The User is given the option to exit the programme at any time by inputting X. S
 
 
 ### Delete Last Entry
-If the User selects to delete last tournament entry then a function is ran which loops through the three worksheets and deletes the last entry from each.
+If the User chooses to delete last tournament entry then a function is ran which loops through the three worksheets and deletes the last entry from each.
 
 ### Delete All Entries Stored
-If the User selects to delete all entries stored a function is ran for this. The User will be asked to confirm that they want to delete all data and if they select yes then all three worksheets are looped through and all entries are cleared leaving a blank database.
+If the User selects to delete all entries stored, a function is ran for this. The User will be asked to confirm that they want to delete all data and if they select yes then all three worksheets are looped through and all entries are cleared leaving a blank database.
 
 ## Flowchart
 Before beginning the coding for this programme I designed the below flowchart in order to plan the functions I would need to create. This was done via [Lucid Chart](https://www.lucidchart.com/pages/). Although the programme remains largely the same as this layout, you can see that in this flowchart where it was initially intended that the database be updated after each input from the User. Additionally, the delete last entry and the delete all entries options were added after the program was created as an afterthought.
@@ -162,7 +162,6 @@ Thanks to:
 - Code Institute for the deployment terminal.
 - Code Institute for providing the Gitpod template.
 - Youtuber - Tech With Tim - who provided a tutorial for using Colorama available [here.](https://www.youtube.com/watch?v=u51Zjlnui4Y)
-- https://www.geeksforgeeks.org/python-ascii-art-using-pyfiglet-module/
 - Instructions on how to use Pyfiglet to utilise ASCII fonts was take from [here.](https://www.geeksforgeeks.org/python-ascii-art-using-pyfiglet-module/)
 - User Sebastian on Stack Overflow who provided the function to make sure all text printed to CLI is typed out slowly, available [here.](https://stackoverflow.com/questions/4099422/printing-slowly-simulate-typing)
 - Code for updating the Google Docs sheets was taken from the Code Institute's Love Sandwiches Walk Through Project.
